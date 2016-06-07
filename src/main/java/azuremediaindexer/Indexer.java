@@ -8,8 +8,17 @@ import com.microsoft.azure.storage.blob.CloudBlobClient;
 import com.microsoft.azure.storage.blob.CloudBlockBlob;
 import com.microsoft.windowsazure.exception.ServiceException;
 import com.microsoft.windowsazure.services.media.MediaContract;
-import com.microsoft.windowsazure.services.media.models.*;
-
+import com.microsoft.windowsazure.services.media.models.Asset;
+import com.microsoft.windowsazure.services.media.models.AssetFile;
+import com.microsoft.windowsazure.services.media.models.AssetInfo;
+import com.microsoft.windowsazure.services.media.models.AccessPolicyInfo;
+import com.microsoft.windowsazure.services.media.models.AccessPolicy;
+import com.microsoft.windowsazure.services.media.models.AccessPolicyPermission;
+import com.microsoft.windowsazure.services.media.models.LocatorInfo;
+import com.microsoft.windowsazure.services.media.models.LocatorType;
+import com.microsoft.windowsazure.services.media.models.Locator;
+import com.microsoft.windowsazure.services.media.models.ListResult;
+import com.microsoft.windowsazure.services.media.models.MediaProcessorInfo;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -56,9 +65,9 @@ public class Indexer extends Subject implements Runnable {
     @Override
     public void run() {
         try {
-            String config = parseFile(taskParamFile);
+            String config = readFile(taskParamFile);
             if (config == null || config.equals("")) {
-                // Print empty configuration file error message
+                System.err.println("Media Processor Task Param File cannot be empty:" + taskParamFile);
                 System.exit(1);
             }
 
@@ -95,26 +104,23 @@ public class Indexer extends Subject implements Runnable {
 
             downloadIndexedAssetFilesFromJob(jobInfo);
         } catch (Exception e) {
-             System.out.println("Exception occured while running indexing job: "
+             System.err.println("Exception occured while running indexing job: "
                                         + e.getMessage());
             throw new RuntimeException(e.toString());
         }
     }
 
-    private synchronized String parseFile(String filePath) throws IOException {
+    private synchronized String readFile(String filePath) throws IOException {
         String content;
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         StringBuilder sb = new StringBuilder();
         String line = br.readLine();
-
         while (line != null) {
             sb.append(line);
             sb.append(System.lineSeparator());
             line = br.readLine();
         }
-
         content = sb.toString();
-
         return content;
     }
 
@@ -127,9 +133,7 @@ public class Indexer extends Subject implements Runnable {
             ListResult<TaskInfo> tasks = service.list(Task.list(tasksLink));
             this.state.setValue(jobState.name());
             this.state.setProgress((int)tasks.get(0).getProgress());
-
             notifyObservers(this.state);
-
             Thread.sleep(1000);
 
             if (
@@ -155,11 +159,10 @@ public class Indexer extends Subject implements Runnable {
 
     private synchronized void downloadIndexedAssetFilesFromJob(JobInfo jobInfo)
             throws ServiceException, URISyntaxException, FileNotFoundException, StorageException, IOException {
+
         final ListResult<AssetInfo> outputAssets;
         outputAssets = service.list(Asset.list(jobInfo.getOutputAssetsLink()));
-
         AssetInfo indexedAsset = outputAssets.get(0);
-
         final AccessPolicyInfo downloadAccessPolicy;
         final LocatorInfo downloadLocator;
 
@@ -187,18 +190,15 @@ public class Indexer extends Subject implements Runnable {
             }
             String locatorPath = downloadLocator.getPath();
             int startOfSas = locatorPath.indexOf("?");
-
             String blobPath = locatorPath + fileName;
             if (startOfSas >= 0) {
                 blobPath = locatorPath.substring(0, startOfSas) + "/" + fileName + locatorPath.substring(startOfSas);
             }
             URI baseUri = new URI(blobPath);
             CloudBlobClient blobClient = new CloudBlobClient(baseUri);
-
             String localFileName = this.outputDir + "/" + outFileName;
             CloudBlockBlob sasBlob = new CloudBlockBlob(baseUri);
             File fileTarget = new File(localFileName);
-
             sasBlob.download(new FileOutputStream(fileTarget));
         }
 
