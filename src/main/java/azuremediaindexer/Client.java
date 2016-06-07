@@ -9,7 +9,19 @@ import com.microsoft.windowsazure.services.media.MediaConfiguration;
 import com.microsoft.windowsazure.services.media.MediaContract;
 import com.microsoft.windowsazure.services.media.MediaService;
 import com.microsoft.windowsazure.services.media.WritableBlobContainerContract;
-import com.microsoft.windowsazure.services.media.models.*;
+import com.microsoft.windowsazure.services.media.models.Asset;
+import com.microsoft.windowsazure.services.media.models.AssetFile;
+import com.microsoft.windowsazure.services.media.models.AssetOption;
+import com.microsoft.windowsazure.services.media.models.AssetInfo;
+import com.microsoft.windowsazure.services.media.models.AccessPolicyInfo;
+import com.microsoft.windowsazure.services.media.models.AccessPolicy;
+import com.microsoft.windowsazure.services.media.models.AccessPolicyPermission;
+import com.microsoft.windowsazure.services.media.models.LocatorInfo;
+import com.microsoft.windowsazure.services.media.models.LocatorType;
+import com.microsoft.windowsazure.services.media.models.Locator;
+import com.microsoft.windowsazure.services.media.models.ListResult;
+import com.microsoft.windowsazure.services.media.models.MediaProcessorInfo;
+import com.microsoft.windowsazure.services.media.models.MediaProcessor;
 import com.microsoft.windowsazure.services.blob.models.BlockList;
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,7 +32,6 @@ import java.io.ByteArrayInputStream;
 import java.security.NoSuchAlgorithmException;
 import java.util.EnumSet;
 import java.util.UUID;
-
 
 public class Client {
     private MediaContract service;
