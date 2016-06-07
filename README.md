@@ -57,13 +57,12 @@ Here is how to execute the application using mvn command:
 
 Here are args for the application that you specify in running the app:
 
-    usage: App Usage:
-     -a,--assetname <arg>   Asset Name to process media indexing
-     -c,--config <arg>      App config file. ex) app.config
-     -f,--file <arg>        Uploading file. By specifing this, you start from uploading file
-     -o,--output <arg>      Output directory
-     -p,--params <arg>      Azure media indexer task parameter file. ex) default-ami.config
-
+     usage: App -c <app.config> [-f <uploadfile>] -a <assetname> -p <amitaskparam.config> -o <outputdir>
+     -a,--assetname <arg>   (Required) Asset Name to process media indexing
+     -c,--config <arg>      (Required) App config file. ex) app.config
+     -f,--file <arg>        (Optional) Uploading file. By specifing this, you start from uploading file
+     -o,--output <arg>      (Required) Output directory
+     -p,--params <arg>      (Required) Azure media indexer task parameter file. ex) default-ami.config
 
 ## TODOs
  * Add unit testing code
@@ -72,4 +71,16 @@ Here are args for the application that you specify in running the app:
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/yokawasa/azure-media-indexer-java.
+
+## Copyright
+
+<table>
+  <tr>
+    <td>Copyright</td><td>Copyright (c) 2016- Yoichi Kawasaki</td>
+  </tr>
+  <tr>
+    <td>License</td><td>The MIT License (MIT)</td>
+  </tr>
+</table>
+
 
