@@ -5,7 +5,7 @@ import azuremediaindexer.State;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Subject {
-  private CopyOnWriteArrayList<Observer> observers = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<Observer> observers = new CopyOnWriteArrayList<>();
 
     public void addObserver(Observer o) {
         observers.add(o);
@@ -20,6 +20,4 @@ public class Subject {
             o.notify(state);
         }
     }
-
-
 }
