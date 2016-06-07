@@ -1,6 +1,6 @@
 # Azure Media Indexer Java Client Implementation
 
-This repository contains Java codes that implement Azure Media Indexer Client using Azure SDK for Java.
+This repository contains Java codes that implement Azure Media Indexer Client using Azure SDK for Java. Azure Media Indexer is a Media Processor that you use to perform the following tasks: make media files and content searchable, generate closed captioning tracks and keywords, index asset files that are part of your asset. The Azure Media Indexer client enables you to execute Azure Media Indexer with command-line interface on any Java runnable operating system, platform or architecture.
 
 ## How to compile, run, and install
 
@@ -31,8 +31,10 @@ In order to get started using Azure Media Indexer, you must create an Azure Medi
      MediaServicesAccountName=<Azure Media Service Account Name>
      MediaServicesAccountKey=<Azure Media Service Account Key>
 
-### Configuration for Media Indexer Processing Task
+### Azure Media Indexer Configuration XML
 **default-ami.config**
+
+This is an Azure Media Indexer configuration xml file that you need to pass to your indexing job. For the detail of configuration parameters, see [Task Preset for Azure Media Indexer](https://msdn.microsoft.com/en-us/library/azure/dn783454.aspx)
 
     <?xml version="1.0" encoding="utf-8" ?>
     <configuration version="2.0">
@@ -71,7 +73,7 @@ Here are args for the application that you specify in running the app:
      -c,--config <arg>      (Required) App config file. ex) app.config
      -f,--file <arg>        (Optional) Uploading file. By specifing this, you start from uploading file
      -o,--output <arg>      (Required) Output directory
-     -p,--params <arg>      (Required) Azure media indexer task parameter file. ex) default-ami.config
+     -p,--params <arg>      (Required) Azure Media Indexer Configuration XML file. ex) default-ami.config
 
 ## TODOs
  * Add unit testing code
