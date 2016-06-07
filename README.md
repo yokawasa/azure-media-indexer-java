@@ -16,13 +16,22 @@ This repository contains Java codes that implement Azure Media Indexer Client us
     # Installing. The project's runtime dependencies copied into the target/lib folder
     mvn install
 
-## Application Configuration
+## Configuration
+
+### Azure Media Services
+
+In order to get started using Azure Media Indexer, you must create an Azure Media Service Account in the Azure Portal and obtain Azure Media Service Accoutn Name and Account Key information that you need to set in your application config file. Here are instructions:
+
+ * [Create an Azure Media Services account](https://azure.microsoft.com/en-us/documentation/articles/media-services-create-account/)
+
+
+### Application Configuration
 **app.config**
 
      MediaServicesAccountName=<Azure Media Service Account Name>
      MediaServicesAccountKey=<Azure Media Service Account Key>
 
-## Configuration for Media Indexer Processing Task
+### Configuration for Media Indexer Processing Task
 **default-ami.config**
 
     <?xml version="1.0" encoding="utf-8" ?>
