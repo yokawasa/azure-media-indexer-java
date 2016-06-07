@@ -30,11 +30,11 @@ public class App
         String outputdir = null;
 
         Options opts = new Options();
-        opts.addOption("c", "config", true, "App config file. ex) app.config");
-        opts.addOption("f", "file", true, "Uploading file. By specifing this, you start from uploading file");
-        opts.addOption("a", "assetname", true, "Asset Name to process media indexing");
-        opts.addOption("p", "params", true, "Azure media indexer task parameter file. ex) default-ami.config");
-        opts.addOption("o", "output", true, "Output directory");
+        opts.addOption("c", "config", true, "(Required) App config file. ex) app.config");
+        opts.addOption("f", "file", true, "(Optional) Uploading file. By specifing this, you start from uploading file");
+        opts.addOption("a", "assetname", true, "(Required) Asset Name to process media indexing");
+        opts.addOption("p", "params", true, "(Required) Azure media indexer task parameter file. ex) default-ami.config");
+        opts.addOption("o", "output", true, "(Required) Output directory");
         BasicParser parser = new BasicParser();
         CommandLine cl;
         HelpFormatter help = new HelpFormatter();
@@ -68,7 +68,7 @@ public class App
             System.out.println("Output dir : " + outputdir);
 
         } catch (IOException | ParseException e) {
-            help.printHelp("App Args Errors:", opts);
+            help.printHelp("App -c <app.config> [-f <uploadfile>] -a <assetname> -p <amitaskparam.config> -o <outputdir>", opts);
             System.exit(1);
         }
        
@@ -85,7 +85,7 @@ public class App
             System.exit(1);
         }
 
-        // upload if opted
+        // uploading if opted
         if (uploadfile != null ) { 
             try {
                 client.UploadFileAndCreateAsset(uploadfile, assetname);
@@ -95,7 +95,7 @@ public class App
             }
         }
 
-        // index asset
+        // indexing asset
         try {
             client.RunIndexingJob(assetname, paramfile, outputdir);
         } catch ( Exception e ){
