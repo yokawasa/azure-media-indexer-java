@@ -33,7 +33,7 @@ public class App
         opts.addOption("c", "config", true, "(Required) App config file. ex) app.config");
         opts.addOption("f", "file", true, "(Optional) Uploading file. By specifing this, you start from uploading file");
         opts.addOption("a", "assetname", true, "(Required) Asset Name to process media indexing");
-        opts.addOption("p", "params", true, "(Required) Azure media indexer task parameter file. ex) default-ami.config");
+        opts.addOption("p", "params", true, "(Required) Azure Media Indexer Configuration XML file. ex) default-ami.config");
         opts.addOption("o", "output", true, "(Required) Output directory");
         BasicParser parser = new BasicParser();
         CommandLine cl;
