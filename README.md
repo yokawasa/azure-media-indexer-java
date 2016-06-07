@@ -8,7 +8,7 @@ This repository contains Java codes that implement Azure Media Indexer Client us
     mvn compile
     
     # executing
-    mvn exec:java -Dexec.args="-a SampleAsset -c ./app.config -f ./sample.mp4 -p ./default-ami.config -o /path/output"
+    mvn exec:java -Dexec.args="-a YourAssetName -c ./app.config -f ./sample.mp4 -p ./default-ami.config -o /path/output"
     
     # packaging
     mvn package
@@ -17,13 +17,13 @@ This repository contains Java codes that implement Azure Media Indexer Client us
     mvn install
 
 ## Application Configuration
-app.config
+**app.config**
 
      MediaServicesAccountName=<Azure Media Service Account Name>
      MediaServicesAccountKey=<Azure Media Service Account Key>
 
-## Configuration for Media Indexer Processing
-default-ami.config
+## Configuration for Media Indexer Processing Task
+**default-ami.config**
 
     <?xml version="1.0" encoding="utf-8" ?>
     <configuration version="2.0">
@@ -53,7 +53,7 @@ default-ami.config
 ## Application Usage 
 Here is how to execute the application using mvn command:
 
-    mvn exec:java -Dexec.args="-a SampleAsset -c ./app.config -f ./sample.mp4 -p ./default-ami.config -o /path/output"
+    mvn exec:java -Dexec.args="-a YourAssetName -c ./app.config -f ./sample.mp4 -p ./default-ami.config -o /path/output"
 
 Here are args for the application that you specify in running the app:
 
@@ -67,6 +67,7 @@ Here are args for the application that you specify in running the app:
 
 ## TODOs
  * Add unit testing code
+ * Write some blog article describing How-To on this app
 
 ## Contributing
 
